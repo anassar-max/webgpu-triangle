@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGPU - المثلث الأول</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .canvas-container {
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            min-width: 200px;
+        }
+
+        .control-group label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="color"] {
+            width: 60px;
+            height: 40px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="range"] {
+            width: 150px;
+            cursor: pointer;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .status.success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status.error {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .status.info {
+            background: #e6e6ff;
+            color: #2c3e50;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-right: 4px solid #667eea;
+        }
+
+        .instructions h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .instructions p {
+            color: #666;
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔺 المثلث الأول باستخدام WebGPU</h1>
+        
+        <div class="canvas-container">
+            <canvas id="gpuCanvas" width="800" height="600"></canvas>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="colorPicker">لون المثلث:</label>
+                <input type="color" id="colorPicker" value="#ff0000">
+            </div>
+            
+            <div class="control-group">
+                <label for="rotationSpeed">سرعة الدوران:</label>
+                <input type="range" id="rotationSpeed" min="0" max="0.05" step="0.001" value="0.01">
+            </div>
+            
+            <div class="control-group">
+                <button id="resetButton">إعادة تعيين</button>
+            </div>
+        </div>
+        
+        <div class="status" id="status">
+            <p>⏳ جاري تهيئة WebGPU...</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>📝 تعليمات:</h3>
+            <p>✓ إذا رأيت مثلثاً أحمر، فهذا يعني أن WebGPU يعمل بنجاح!</p>
+            <p>✓ يمكنك تغيير لون المثلث من أداة اختيار الألوان</p>
+            <p>✓ يمكنك التحكم بسرعة الدوران من شريط التمرير</p>
+            <p>✓ المشروع يعمل على GitHub Codespaces بغض النظر عن جهازك</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
